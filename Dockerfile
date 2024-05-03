@@ -15,6 +15,7 @@ COPY pom.xml .
   #src ./src: 从构建上下文复制src目录到容器内的/app/src目录。
 COPY src ./src
 
+
 # Build a release artifact.
 # RUN: 在容器内执行命令。
   #mvn package -DskipTests: 使用Maven的package目标来构建项目，

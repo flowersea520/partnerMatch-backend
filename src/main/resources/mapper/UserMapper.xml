@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- @author <a href="https://github.com/liyupi">程序员鱼皮</a> -->
-<!-- @from <a href="https://yupi.icu">编程导航知识星球</a> -->
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -21,15 +19,21 @@
         <result property="isDelete" column="isDelete" jdbcType="TINYINT"/>
         <result property="userRole" column="userRole" jdbcType="INTEGER"/>
         <result property="planetCode" column="planetCode" jdbcType="VARCHAR"/>
+        <result property="tags" column="tags" jdbcType="VARCHAR"/>
+        <result property="profile" column="profile" jdbcType="VARCHAR"/>
     </resultMap>
-
+    <!--
+    该片段包含了一组列名。
+    这些列名可能是数据库表中的列名，
+    用于在查询语句中指定要查询的列，
+    当你在其他地方需要引用这个 SQL 片段时，可以使用 <include> 元素，
+    代替select 中的 *而已
+    -->
     <sql id="Base_Column_List">
         id,username,userAccount,
         avatarUrl,gender,userPassword,
         phone,email,userStatus,
         createTime,updateTime,isDelete,
-        userRole,planetCode
+        userRole,planetCode,tags,profile
     </sql>
-
-<!--    https://yupi.icu/-->
 </mapper>

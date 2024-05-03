@@ -1,4 +1,4 @@
-package com.lxc.usercenter.model.domain.request;
+package com.lxc.usercenter.model.request;
 
 import lombok.Data;
 

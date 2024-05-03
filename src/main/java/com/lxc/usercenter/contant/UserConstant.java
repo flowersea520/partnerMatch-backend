@@ -18,11 +18,15 @@ public interface UserConstant {
 	 */
 	int DEFAULT_ROLE = 0;
 
-	// https://space.bilibili.com/12890453/
 
 	/**
 	 * 管理员权限
 	 */
 	int ADMIN_ROLE = 1;
 
+
+	/**
+	 * 盐值，混淆密码
+	 */
+	  String SALT = "lxc";
 }

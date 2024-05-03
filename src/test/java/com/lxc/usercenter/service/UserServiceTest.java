@@ -3,11 +3,15 @@ package com.lxc.usercenter.service;
 // [编程学习交流圈](https://www.code-nav.cn/) 连接万名编程爱好者，一起优秀！20000+ 小伙伴交流分享、40+ 大厂嘉宾一对一答疑、100+ 各方向编程交流群、4000+ 编程问答参考
 
 import com.lxc.usercenter.model.domain.User;
+import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 用户服务测试
@@ -111,5 +115,14 @@ public class UserServiceTest {
         userAccount = "yupi";
         result = userService.userRegister(userAccount, userPassword, checkPassword, planetCode);
         Assertions.assertEquals(-1, result);
+    }
+
+    @Test
+    public void testsearchUsersByTags() {
+        // 在 Arrays.asList 方法中，可以传入一个数组作为参数，也可以传入多个数组元素作为参数。
+        // 这是因为 Arrays.asList 方法是一个重载方法，它有多个重载形式。
+        List<String> tagNameList = Arrays.asList("java", "python"); // 这里直接写数组元素
+        List<User> userList = userService.searchUsersByTags(tagNameList);
+        Assert.assertNotNull(userList);
     }
 }

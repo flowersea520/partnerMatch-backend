@@ -1,7 +1,12 @@
 # 这个不带dev 和 prod后缀的可以理解为公共配置，一启动就会加载这个配置
 spring:
+  # 设置默认环境为 dev
+  profiles:
+    active: dev
   application:
     name: user-center-backend
+  jackson:
+      time-zone: Asia/Shanghai
   # DataSource Config
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
@@ -11,13 +16,38 @@ spring:
   # session 失效时间
   session:
     timeout: 86400
+    # 将session存储到redis中
+    store-type: redis
+  mvc:
+    pathmatch:
+      # springboot2.6之后将springmvc默认路径匹配策略从ant_path_matcher改为PathPatternParser了
+      # Ant风格的路径匹配器是Spring MVC默认使用的路径匹配策略，
+      # 它基于Apache Ant项目中的路径模式。这种匹配器允许你使用通配符来定义URL模式。
+      matching-strategy: ant_path_matcher # 解决springboot2.6.4与swagger2版本冲突
+  # Springboot 整合 redis的配置
+  redis:
+    host: localhost
+    port: 6379
+    password: 123456
+    database: 1  # 默认数据库，默认值是0
+  redisson:
+    address: "redis://127.0.0.1:6379"
+    password: "123456"
+# server 下的配置项是用来配置嵌入式 Servlet 容器（例如 Tomcat、Jetty）的设置。
 server:
   port: 8080
   servlet:
     context-path: /api
+    session:
+      # 指定会话 Cookie 的域名。这个配置项允许你设置会话 Cookie 的域名，
+      # 把cookie的作用域提高到域名层级，忽略的端口
+      cookie:
+        # 如果你希望多个前端应用（例如 localhost:5000）都能够访问同一个后端应用，并且共享后端应用设置的会话 Cookie，那么可以将会话 Cookie 的域名设置为顶级域名（例如 localhost）。这样，所有的前端应用都能够访问同一个后端应用，并且共享同一个会话状态。
+        domain: localhost
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
     db-config:
       logic-delete-field: isDelete # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
