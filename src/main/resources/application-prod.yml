@@ -1,18 +1,59 @@
 # 这个带 prod后缀的可以理解为 生产环境，也叫线上环境，项目上线用的
 spring:
   application:
-    name: user-center-backend
+    name: partnerMatch-backend
+  jackson:
+    time-zone: Asia/Shanghai
   # DataSource Config
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     #    这里写生产环境地址 （线上地址）
     url: jdbc:mysql://39.101.78.159:3306/usercenter
-    username: root
+    username: lxc
     password: 123456
   # session 失效时间
   session:
     timeout: 86400
+    # 将session存储到redis中，（在超时范围内，可以理解成为一种缓存，一直存在redis中）
+    store-type: redis
+
     # 因为127.0.0.1可能默认使用 ipv6的地址，所以设置address:0.0.0.0可以
     # 讲其修改为ipv4
+
+  mvc:
+    pathmatch:
+      # springboot2.6之后将springmvc默认路径匹配策略从ant_path_matcher改为PathPatternParser了
+      # Ant风格的路径匹配器是Spring MVC默认使用的路径匹配策略，
+      # 它基于Apache Ant项目中的路径模式。这种匹配器允许你使用通配符来定义URL模式。
+      matching-strategy: ant_path_matcher # 解决springboot2.6.4与swagger2版本冲突
+    # Springboot 整合 redis的配置
+  redis:
+    host: 39.101.78.159
+    port: 6379
+    password: 123456
+    database: 0  # 默认数据库，默认值是0
+  redisson:
+    address: "redis://39.101.78.159:6379"
+    password: 123456
+    # server 下的配置项是用来配置嵌入式 Servlet 容器（例如 Tomcat、Jetty）的设置。
 server:
+  port: 8081    #HTTPS协议默认端口号为443，需要使用其他端口时，您可以在此处自定义。
+  ssl:
+    key-store-password: ottjinitaimei  #填写jks-password.txt文件内的密码。
+    key-store-type: JKS #JKS格式证书密钥库类型。PFX格式的证书密钥库类型为PKCS12。
+    key-store: classpath:ssl.jks  #您需要使用实际的证书名称替换domain_name.jks。
+  servlet:
+    context-path: /api
+    session:
+      # 指定会话 Cookie 的域名。这个配置项允许你设置会话 Cookie 的域名，
+      # 把cookie的作用域提高到域名层级，忽略的端口
+      cookie:
+        #        通过设置 domain 属性为 "www.flowersea.site"，会话 Cookie 的作用域被设置为这个域名。这意味着无论在该域名下的哪个子域名，浏览器都会发送相同的会话 Cookie。
+        domain: "39.101.78.159"
+        # 在 None 模式下，浏览器会在所有情况下都发送 Cookie，即使是跨站点的情况下也会发送。这个设置通常用于允许第三方站点能够访问并使用站点的 Cookie，比如一些集成登录或嵌入式内容的情况。
+        same-site: none
+        #        设置 secure: false 表示会话 Cookie 可以通过非安全 (non-HTTPS) 的连接发送。通常，对于敏感数据应当使用安全连接（HTTPS），以确保传输的数据加密和安全。在开发环境中可能会禁用 HTTPS，但在生产环境中强烈建议将 secure 设置为 true，以确保会话 Cookie 仅通过安全连接传输。
+        secure: true
   address: 0.0.0.0
+
+

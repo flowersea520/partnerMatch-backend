@@ -42,6 +42,10 @@ create index idx_userId
     on tag (userId);
 
 -- 队伍表
+/**
+   这个表可以看到： 一个队伍是由谁创建的，及 队伍的信息
+ */
+
 
 create table team
 (
@@ -51,7 +55,7 @@ create table team
     description varchar(1024)                      null comment '描述 ',
     maxNum      int      default 1                 not null comment '最大人数 ',
     expireTime  datetime                           null comment '过期时间 ',
-    userId      bigint comment '用户id',
+    userId      bigint comment ' 用户id（约定：用户id就是队长id）',
     status      int default 0 null comment ' 0 - 公开， 1 - 私有，2 - 加密',
     password    varchar(512)                       null comment '密码',
     createTime  datetime default CURRENT_TIMESTAMP null comment '创建时间',
@@ -61,12 +65,16 @@ create table team
     comment '队伍表';
 
 -- 用户队伍关系表
+/**
+   这个表可以看到： 一个用户 加入了多少个队伍
+                 一个队伍 里面 加入了 多少个用户
+ */
 
 create table user_team
 (
     id            bigint auto_increment comment 'id'
         primary key,
-    userId       bigint   comment ' 用户id',
+    userId       bigint   comment '  用户id（约定：用户id就是队长id）',
     teamId  bigint      comment ' 队伍Id ',
     joinTime         datetime                           null comment '加入时间 ',
     createTime   datetime      default CURRENT_TIMESTAMP null comment '创建时间',

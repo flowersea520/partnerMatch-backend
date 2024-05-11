@@ -1,8 +1,5 @@
 # 这个不带dev 和 prod后缀的可以理解为公共配置，一启动就会加载这个配置
 spring:
-  # 设置默认环境为 dev
-  profiles:
-    active: dev
   application:
     name: user-center-backend
   jackson:
@@ -16,7 +13,7 @@ spring:
   # session 失效时间
   session:
     timeout: 86400
-    # 将session存储到redis中
+    # 将session存储到redis中，（在超时范围内，可以理解成为一种缓存，一直存在redis中）
     store-type: redis
   mvc:
     pathmatch:
@@ -44,6 +41,7 @@ server:
       cookie:
         # 如果你希望多个前端应用（例如 localhost:5000）都能够访问同一个后端应用，并且共享后端应用设置的会话 Cookie，那么可以将会话 Cookie 的域名设置为顶级域名（例如 localhost）。这样，所有的前端应用都能够访问同一个后端应用，并且共享同一个会话状态。
         domain: localhost
+
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: false
