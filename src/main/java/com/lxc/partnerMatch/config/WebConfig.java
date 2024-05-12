@@ -12,7 +12,7 @@ public class WebConfig implements WebMvcConfigurer {
 //				记得不同的服务，详细到端口号
 				.allowedOrigins("http://39.101.78.159", "http://localhost:8000",
 						"http://localhost:5173", "http://localhost:8001", "\n" +
-								"http://localhost:3000", "http://www.flowersea.site",
+								"http://localhost:3000", "https://www.flowersea.site",
 						"http://localhost:3000", "https://39.101.78.159") // 允许这些源访问
 				.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // 允许的方法
 				.allowedHeaders("*") // 允许的头部
