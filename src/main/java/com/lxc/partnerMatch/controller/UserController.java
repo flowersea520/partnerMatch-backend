@@ -30,10 +30,6 @@ import static javax.swing.UIManager.get;
  * author lxc
  */
 @RestController
-@CrossOrigin(origins = {"http://39.101.78.159", "http://localhost:5173", "http://localhost:3000", "https://www.flowersea.site", "https://76.76.21.93:443"},
-		methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS},
-		allowedHeaders = "*",
-		allowCredentials = "true")
 @RequestMapping("/user")
 @Slf4j
 public class UserController {
